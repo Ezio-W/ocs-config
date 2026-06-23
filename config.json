@@ -1,0 +1,27 @@
+[
+  {
+    "name": "我的DeepSeek题库",
+    "homepage": "https://platform.deepseek.com/",
+    "url": "https://api.deepseek.com/chat/completions",
+    "method": "POST",
+    "contentType": "json",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer sk-321869dd9fe042419c39071441b38db2"
+    },
+    "data": {
+      "model": "deepseek-chat",
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是一个答题助手。请只输出正确答案的选项字母（例如：A、ABCD、对、错），不要包含任何解释。"
+        },
+        {
+          "role": "user",
+          "content": "${title}"
+        }
+      ]
+    },
+    "handler": "return (res) => res.choices && res.choices.length > 0 ? [undefined, res.choices[0].message.content] : undefined"
+  }
+]
