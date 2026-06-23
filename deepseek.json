@@ -5,12 +5,13 @@
     "url": "https://api.deepseek.com/chat/completions",
     "method": "POST",
     "contentType": "json",
+    "type": "GM_xmlhttpRequest",
     "headers": {
       "Content-Type": "application/json",
       "Authorization": "Bearer sk-321869dd9fe042419c39071441b38db2"
     },
     "data": {
-      "model": "deepseek-chat",
+      "model": "deepseek-v4-pro",
       "messages": [
         {
           "role": "system",
@@ -22,6 +23,6 @@
         }
       ]
     },
-    "handler": "return (res) => res.choices && res.choices.length > 0 ? [undefined, res.choices[0].message.content] : undefined"
+    "handler": "return (res) => { if (res.error) { return ['API错误: ' + res.error.message, undefined]; } if (res.choices && res.choices.length > 0) { return [undefined, res.choices[0].message.content]; } return ['未获取到答案', undefined]; }"
   }
 ]
